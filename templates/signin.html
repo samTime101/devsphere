@@ -1,0 +1,17 @@
+{% comment %} AUGUST 25 2025 {% endcomment %}
+
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<form method="post" >
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username">
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password">
+    <button type="submit">Sign In</button>
+</form>
+<a href="{% url 'signup' %}">Don't have an account? Sign up</a>

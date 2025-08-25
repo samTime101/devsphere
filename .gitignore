@@ -1,0 +1,17 @@
+# AUGUST 25
+# SAMIP REGMI
+
+db.sqlite3
+*.pyc
+__pycache__/
+
+/dsproject/__pycache__/
+/dsproject/migrations/
+/index_app/migrations/
+/index_app/__pycache__/
+/signin_app/migrations/
+/signin_app/__pycache__/
+/signup_app/migrations/
+/signup_app/__pycache__/
+/signout_app/migrations/
+/signout_app/__pycache__/
