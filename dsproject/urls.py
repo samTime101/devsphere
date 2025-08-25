@@ -3,14 +3,15 @@
 
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from signout_app.views import SignoutView
 from signup_app.views import SignupView
 from signin_app.views import SigninView
 from index_app.views import IndexView
 from admin_app.views import AdminView
-from django.conf import settings
-from django.conf.urls.static import static
+from admin_eventregister.views import EventRegisterView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('signup/', SignupView.as_view(), name='signup'),
     path('signin/', SigninView.as_view(), name='signin'),
     path('signout/', SignoutView.as_view(), name='signout'),
+    path('create/event/', EventRegisterView.as_view(), name='create_event'),
 ]
 
 if settings.DEBUG:

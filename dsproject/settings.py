@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'signout_app',
     'admin_app',
     'sql_db',
+    'admin_eventregister',
 ]
 
 MIDDLEWARE = [
