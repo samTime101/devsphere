@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'signin_app',
     'index_app',
     'signout_app',
+    'admin_app',
+    'sql_db',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# --------------------_ADDED BY SAMIP REGMI--------------------
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# --------------------------------------------------------------

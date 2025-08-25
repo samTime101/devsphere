@@ -15,3 +15,7 @@ __pycache__/
 /signup_app/__pycache__/
 /signout_app/migrations/
 /signout_app/__pycache__/
+/admin_app/migrations/
+/admin_app/__pycache__/
+/sql_db/migrations/
+/sql_db/__pycache__/

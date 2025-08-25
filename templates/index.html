@@ -12,6 +12,9 @@
             {{ message }}
         </div>
     {% endfor %}
+    {% if user.is_staff %}
+        <a href="{% url 'admin' %}">Admin Page</a>
+    {% endif %}
     <form action="{% url 'signout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Sign Out</button>
