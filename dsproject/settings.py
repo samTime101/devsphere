@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'admin_eventregister',
     'admin_eventedit',
     'event_app',
+    'admin_eventdelete',
 ]
 
 MIDDLEWARE = [

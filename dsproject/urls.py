@@ -11,10 +11,10 @@ from signup_app.views import SignupView
 from signin_app.views import SigninView
 from index_app.views import IndexView
 from admin_app.views import AdminView
+from admin_eventdelete.views import EventDeleteView
 from admin_eventregister.views import EventRegisterView
 from admin_eventedit.views import EventEditView
 from event_app.views import EventListView
-
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -26,6 +26,7 @@ urlpatterns = [
     path('create/event/', EventRegisterView.as_view(), name='create_event'),
     path('edit/event/<int:event_id>/', EventEditView.as_view(), name='edit_event'),
     path('event/<int:event_id>/', EventListView.as_view(), name='event_detail'),
+    path('delete/event/<int:event_id>/', EventDeleteView.as_view(), name='delete_event'),
 ]
 
 if settings.DEBUG:
