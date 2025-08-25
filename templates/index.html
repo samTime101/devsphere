@@ -36,7 +36,6 @@
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for event in events %}
-                {% comment %} {% if event.status == "Upcoming" %} {% endcomment %}
                 <div class="col">
                     <div class="card h-100 shadow-sm">
                         {% if event.banner_image %}
@@ -48,9 +47,9 @@
                                 <h5 class="card-title">{{ event.name }}</h5>
                             </a>
                             <strong>Status: </strong>
-                            {% if event.status == "Upcoming" %}
+                            {% if event.status == "upcoming" %}
                                 <span class="badge bg-success">{{ event.status }}</span>
-                            {% elif event.status == "Ongoing" %}
+                            {% elif event.status == "ongoing" %}
                                 <span class="badge bg-warning text-dark">{{ event.status }}</span>
                             {% else %}
                                 <span class="badge bg-secondary">{{ event.status }}</span>

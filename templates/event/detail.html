@@ -50,12 +50,18 @@
             {% endfor %}
         </div>
     {% endif %}
-
     {% if event.registration_link %}
-        <div class="mt-4">
-            <a href="{{ event.registration_link }}" class="btn btn-primary btn-lg">Register Here</a>
-        </div>
+        {% if event.status != "completed" %}
+            <div class="mt-4">
+                <a href="{{ event.registration_link }}" class="btn btn-primary btn-lg">Register Here</a>
+            </div>
+        {% else %}
+            <div class="mt-4">
+                <button class="btn btn-secondary btn-lg" disabled>Registration Closed</button>
+            </div>
+        {% endif %}
     {% endif %}
+
 
     <div class="mt-5 p-3 border rounded bg-light">
         <h5>Event Info</h5>
