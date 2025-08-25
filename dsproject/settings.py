@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'admin_app',
     'sql_db',
     'admin_eventregister',
+    'admin_eventedit',
 ]
 
 MIDDLEWARE = [

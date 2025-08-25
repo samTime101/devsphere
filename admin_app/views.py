@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.shortcuts import redirect, render
 from django.contrib import messages
-
+from sql_db.models import Event , EventImage    
 class AdminView(LoginRequiredMixin, View):
     login_url = '/signin/'
 
@@ -14,4 +14,5 @@ class AdminView(LoginRequiredMixin, View):
             messages.error(request, 'ACCESS DENIED: ADMIN ONLY')
             return redirect('index')
         messages.info(request, 'WELCOME TO ADMIN DASHBOARD')
-        return render(request, 'admin/admin.html')
+        events = Event.objects.all()
+        return render(request, 'admin/admin.html', {'events': events})

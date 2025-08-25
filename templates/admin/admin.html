@@ -19,6 +19,12 @@
 
         <a href="{% url 'create_event' %}" class="btn btn-secondary mb-3">create an event</a>
 
+        {% for event in events %}
+        <p>{{ event.name }} - <a href="{% url 'edit_event' event.id %}">edit</a></p>
+        {% empty %}
+        <p>No events available.</p>
+        {% endfor %}
+        {% comment %} <a href="{% url 'delete_event' %}" class="btn btn-secondary mb-3">delete an event</a> {% endcomment %}
     </div>
 
 </body>
