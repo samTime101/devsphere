@@ -43,7 +43,10 @@
                             <img src="{{ event.banner_image.url }}" class="card-img-top" alt="{{ event.name }}">
                         {% endif %}
                         <div class="card-body">
-                            <h5 class="card-title">{{ event.name }}</h5>
+                            {% comment %} <h5 class="card-title">{{ event.name }}</h5> {% endcomment %}
+                            <a href="{% url 'event_detail' event.id %}" class="text-decoration-none">
+                                <h5 class="card-title">{{ event.name }}</h5>
+                            </a>
                             <strong>Status: </strong>
                             {% if event.status == "Upcoming" %}
                                 <span class="badge bg-success">{{ event.status }}</span>

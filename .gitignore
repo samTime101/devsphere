@@ -23,4 +23,6 @@ __pycache__/
 /admin_eventregister/__pycache__/
 /admin_eventedit/migrations/
 /admin_eventedit/__pycache__/
+/event_app/migrations/
+/event_app/__pycache__/
 /media/
