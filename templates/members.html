@@ -21,7 +21,7 @@
     <h1 class="mb-4 text-center">fetch</h1>
     <div class="row g-4">
       {% for member in members %}
-        {% if "memberlogger" not in member.roles %}
+        {% if "bot" not in member.roles %}
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="card shadow-sm h-100 text-center">
               {% if member.avatar_url %}
@@ -34,14 +34,14 @@
               <div class="card-body">
                 <h5 class="card-title">{{ member.name }}</h5>
                 <p class="card-text"><strong>Joined at:</strong> {{ member.joined_at }}</p>
-                <p class="card-text">
+                {% comment %} <p class="card-text">
                   <strong>Roles:</strong>
                   {% for role in member.roles %}
                     <span class="badge bg-primary me-1 mb-1">{{ role }}</span>
                   {% empty %}
                     None
                   {% endfor %}
-                </p>
+                </p> {% endcomment %}
               </div>
             </div>
           </div>

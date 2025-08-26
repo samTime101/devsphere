@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-w-3mkpoqjy%mduejd)@5%7h8^c7eoi&-4goctcx2b(blttqb33
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# DEVELOPMENT MATRA PAXI REMOVE GARNEYYYYYY
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.trycloudflare.com",
+]
 
 
 # Application definition

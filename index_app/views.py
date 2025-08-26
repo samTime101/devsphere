@@ -13,7 +13,7 @@ class IndexView(LoginRequiredMixin, View):
 
     def get(self, request):
         messages.info(request, 'WELCOME TO HOME PAGE')
-        events = Event.objects.all().order_by('-date')[:3]
+        events = Event.objects.all().order_by('-date')#[:3]
         return_context = {
             "events": events,
 
