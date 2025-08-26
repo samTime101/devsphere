@@ -27,4 +27,6 @@ __pycache__/
 /admin_eventdelete/__pycache__/
 /event_app/migrations/
 /event_app/__pycache__/
+/delete_image/migrations/
+/delete_image/__pycache__/
 /media/

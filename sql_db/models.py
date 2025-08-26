@@ -1,45 +1,65 @@
 # AUGUST 25
 # SAMIP REGMI
-
 from django.db import models
 from django.contrib.auth.models import User
 
+def event_banner_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return f'event_{instance.id}/banner/event_{instance.id}_banner.{ext}'
 
+def event_guest_speaker_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return f'event_{instance.id}/guest_speaker/event_{instance.id}_guest_speaker.{ext}'
+
+def event_image_path(instance, filename):
+    return f'event_{instance.event.id}/images/event_{instance.event.id}_image_{filename}'
+
+def blog_image_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return f'blog_{instance.id}/images/blog_{instance.id}_image.{ext}'
 
 class Event(models.Model):
-    # LEFT IS IN DB, RIGHT IS IN UI
-
     STATUS_CHOICES = [
-        ('upcoming', 'Upcoming'),
-        ('ongoing', 'Ongoing'),
-        ('completed', 'Completed'),
-        ('cancelled', 'Cancelled'),
+        ('upcoming', 'upcoming'),
+        ('ongoing', 'ongoing'),
+        ('completed', 'completed'),
+        ('cancelled', 'cancelled'),
     ]
-    name = models.CharField(max_length=100, blank=False, null=False)
-    date = models.DateField(blank=False, null=False)
+
+    name = models.CharField(max_length=100)
+    date = models.DateField()
     location = models.CharField(max_length=150, default="Biratnagar International College")
-    description = models.TextField(blank=False, null=False)
+    description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     organized_by = models.CharField(max_length=100, default="BIC Devsphere")
-    event_starting_date_time = models.DateTimeField(blank=False, null=False)
-    event_ending_date_time = models.DateTimeField(blank=False, null=False)
-    banner_image = models.ImageField(upload_to='event_banners/', blank=True, null=True)
-    event_images = models.ImageField(upload_to='event_images/', blank=True, null=True)
+    event_starting_date_time = models.DateTimeField()
+    event_ending_date_time = models.DateTimeField()
+    banner_image = models.ImageField(upload_to=event_banner_path, blank=True, null=True)
     event_guest_speaker = models.CharField(max_length=100, blank=True, null=True)
-    event_guest_speaker_image = models.ImageField(upload_to='guest_speakers/', blank=True, null=True)
+    event_guest_speaker_image = models.ImageField(upload_to=event_guest_speaker_path, blank=True, null=True)
     event_guest_speaker_bio = models.TextField(blank=True, null=True)
     registration_link = models.URLField(blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='upcoming')
 
-
 class EventImage(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='event_images/')
+    image = models.ImageField(upload_to=event_image_path)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    
+
+class BlogImage(models.Model):
+    blog = models.ForeignKey('Blogs', on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to=blog_image_path)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
 class EventRegistration(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="registrations")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_registrations")
     registered_at = models.DateTimeField(auto_now_add=True)
 
+class Blogs(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to=blog_image_path, blank=True, null=True)

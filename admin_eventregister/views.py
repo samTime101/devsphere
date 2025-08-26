@@ -29,31 +29,37 @@ class EventRegisterView(LoginRequiredMixin, View):
             'event_guest_speaker': request.POST.get('event_guest_speaker', ''),
             'event_guest_speaker_bio': request.POST.get('event_guest_speaker_bio', ''),
             'registration_link': request.POST.get('registration_link', ''),
-            'status': request.POST.get('status', 'Upcoming'),
+            'status': request.POST.get('status', 'upcoming'),
         }
-        event_data['banner_image'] = request.FILES.get('banner_image')
-        event_data['event_guest_speaker_image'] = request.FILES.get('event_guest_speaker_image')
 
-        if not all([event_data['name'], event_data['date'], event_data['location'],
-                    event_data['description'], event_data['event_starting_date_time'],
-                    event_data['event_ending_date_time'],event_data['status'],
-                    event_data['banner_image'], event_data['event_guest_speaker_image'],
-                    event_data['event_guest_speaker_bio'],
-                    event_data['registration_link']
-                    ]):
-            
+        banner_image = request.FILES.get('banner_image')
+        guest_speaker_image = request.FILES.get('event_guest_speaker_image')
+        event_images = request.FILES.getlist('event_images')
+
+        required_fields = [
+            event_data['name'], event_data['date'], event_data['location'],
+            event_data['description'], event_data['event_starting_date_time'],
+            event_data['event_ending_date_time'], event_data['status'],
+            banner_image, guest_speaker_image
+        ]
+        if not all(required_fields):
             messages.error(request, 'PLEASE FILL IN ALL REQUIRED FIELDS.')
             return redirect('create_event')
 
-        if request.FILES.get('banner_image'):
-            event_data['banner_image'] = request.FILES['banner_image']
-        if request.FILES.get('event_guest_speaker_image'):
-            event_data['event_guest_speaker_image'] = request.FILES['event_guest_speaker_image']
-
         event = Event.objects.create(**event_data)
 
-        for image in request.FILES.getlist('event_images'):
+        if banner_image:
+            event.banner_image = banner_image
+        if guest_speaker_image:
+            event.event_guest_speaker_image = guest_speaker_image
+        event.save()  
+
+        for idx, image in enumerate(event_images, start=1):
+            ext = image.name.split('.')[-1]
+            image.name = f"event_{event.id}_image_{idx}.{ext}"
             EventImage.objects.create(event=event, image=image)
 
         messages.success(request, "EVENT CREATED SUCCESSFULLY")
         return redirect('admin')
+
+
