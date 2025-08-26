@@ -2,6 +2,7 @@
 # SAMIP REGMI
 
 db.sqlite3
+db.sqlite3-journal
 *.pyc
 __pycache__/
 
@@ -29,4 +30,8 @@ __pycache__/
 /event_app/__pycache__/
 /delete_image/migrations/
 /delete_image/__pycache__/
+/members_list/migrations/
+/members_list/__pycache__/
 /media/
+
+.env

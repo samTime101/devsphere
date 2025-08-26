@@ -63,3 +63,13 @@ class Blogs(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to=blog_image_path, blank=True, null=True)
+
+
+class DiscordMember(models.Model):
+    discord_id = models.BigIntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    global_name = models.CharField(max_length=100, blank=True, null=True)
+    discriminator = models.CharField(max_length=10)
+    joined_at = models.DateTimeField(null=True)
+    roles = models.TextField(blank=True)
+    avatar_url = models.URLField(blank=True, null=True)
