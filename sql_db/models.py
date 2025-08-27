@@ -1,7 +1,7 @@
 # AUGUST 25
 # SAMIP REGMI
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 def event_banner_path(instance, filename):
     ext = filename.split('.')[-1]
@@ -17,6 +17,21 @@ def event_image_path(instance, filename):
 def blog_image_path(instance, filename):
     ext = filename.split('.')[-1]
     return f'blog_{instance.id}/images/blog_{instance.id}_image.{ext}'
+
+# CUSTOM USER MODEL 
+# STREAM RA SECTION
+class User(AbstractUser):
+    STREAM_CHOICES = [
+        ('CS', 'CS'),
+    ]
+    SECTION_CHOICES = [
+        ('L4CG1', 'L4CG1'),
+        ('L4CG2', 'L4CG2'),
+        ('L4CG3', 'L4CG3'),
+        ('L4CG4', 'L4CG4'),
+    ]
+    stream = models.CharField(max_length=100, blank=True, null=True, choices=STREAM_CHOICES)
+    section = models.CharField(max_length=50, blank=True, null=True, choices=SECTION_CHOICES)
 
 class Event(models.Model):
     STATUS_CHOICES = [
