@@ -11,6 +11,10 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">TESTING</a>
+            {% comment %} USER SECTION {% endcomment %}
+            <span class="navbar-text me-3">
+                Logged in as: {{ user.username }} | Stream: {{ user.get_stream_display }} | Section: {{ user.get_section_display }}
+            </span>
             <div class="d-flex">
                 {% if user.is_staff %}
                     <a href="{% url 'admin' %}" class="btn btn-outline-primary me-2">Admin Page</a>
