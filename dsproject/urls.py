@@ -24,6 +24,7 @@ from blog_details.views import BlogDetailView
 from user_blogs.views import UserBlogsView
 from create_forum.views import CreateForumView
 from list_forums.views import ListForumsView
+from forum_details.views import ForumDetailView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -45,6 +46,7 @@ urlpatterns = [
     path('myblogs/', UserBlogsView.as_view(), name='user_blogs'),
     path('create/forum/', CreateForumView.as_view(), name='create_forum'),
     path('forums/', ListForumsView.as_view(), name='list_forums'),
+    path('forum/<int:forum_id>/', ForumDetailView.as_view(), name='forum_detail'),
 ]
 
 if settings.DEBUG:
