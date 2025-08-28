@@ -13,8 +13,8 @@
 {% include "components/navbar.html" %}
 
     <div class="container">
+        {% include 'components/messages.html' %}
 
-    {% include 'components/messages.html' %}
 
 
         <!-- EVENTS -->
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             {% empty %}
-                <p class="text-center text-muted">No upcoming events available</p>
+                <p class="text-center text-muted">No upcoming events available.</p>
             {% endfor %}
         </div>
 
