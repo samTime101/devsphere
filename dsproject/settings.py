@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'blog_details',
     'user_blogs',
     'create_forum',
+    'forum_details',
+    'list_forums',
 ]
 
 MIDDLEWARE = [
@@ -101,7 +103,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'sql_db.User' 
+AUTH_USER_MODEL = 'sql_db.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

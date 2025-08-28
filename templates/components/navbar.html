@@ -22,7 +22,7 @@
         <a href="{% url 'create_blog' %}" class="btn btn-primary btn-sm text-white">Create Blogs</a>
         <a href="{% url 'create_forum' %}" class="btn btn-primary btn-sm text-white">Create Forum</a>
         <a href="{% url 'list_blogs' %}" class="btn btn-success btn-sm text-white">Read Blogs</a>
-        {% comment %} <a href="{% url 'list_forums' %}" class="btn btn-success btn-sm text-white">Read Forums</a> {% endcomment %}
+        <a href="{% url 'list_forums' %}" class="btn btn-success btn-sm text-white">Read Forums</a>
         <a href="{% url 'user_blogs' %}" class="btn btn-secondary btn-sm text-white">My Blogs</a>
         <form action="{% url 'signout' %}" method="post" class="d-inline">
           {% csrf_token %}

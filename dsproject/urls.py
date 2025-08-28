@@ -1,5 +1,5 @@
-# SAMIP REGMI 
-# AUGUST 25 
+# SAMIP REGMI
+# AUGUST 25
 
 from django.contrib import admin
 from django.urls import path
@@ -23,6 +23,7 @@ from admin_blogapproval.views import BlogApprovalView
 from blog_details.views import BlogDetailView
 from user_blogs.views import UserBlogsView
 from create_forum.views import CreateForumView
+from list_forums.views import ListForumsView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -43,6 +44,7 @@ urlpatterns = [
     path('blog/<int:blog_id>/', BlogDetailView.as_view(), name='blog_detail'),
     path('myblogs/', UserBlogsView.as_view(), name='user_blogs'),
     path('create/forum/', CreateForumView.as_view(), name='create_forum'),
+    path('forums/', ListForumsView.as_view(), name='list_forums'),
 ]
 
 if settings.DEBUG:
