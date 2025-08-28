@@ -28,4 +28,4 @@ class CreateBlogView(LoginRequiredMixin, View):
                 'created_at': new_blog.created_at
             }
         }
-        return redirect('/blogs/') 
+        return redirect('/myblogs/') 
