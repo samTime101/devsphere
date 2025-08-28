@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'admin_blogapproval',
     'blog_details',
     'user_blogs',
+    'create_forum',
 ]
 
 MIDDLEWARE = [

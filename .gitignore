@@ -40,6 +40,8 @@ __pycache__/
 /blog_details/__pycache__/
 /user_blogs/migrations/
 /user_blogs/__pycache__/
+/create_forum/migrations/
+/create_forum/__pycache__/
 /media/
 
 .env

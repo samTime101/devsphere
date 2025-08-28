@@ -89,3 +89,44 @@ class DiscordMember(models.Model):
     joined_at = models.DateTimeField(null=True)
     roles = models.TextField(blank=True)
     avatar_url = models.URLField(blank=True, null=True)
+
+
+# FORUM AND THREAD KO LAGI
+class Forum(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='forums')
+
+class Question(models.Model):
+    forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='questions')
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions')
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers')
+
+class Comment(models.Model):
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+
+class Vote(models.Model):
+    VOTE_CHOICES = [
+        (1, 'Upvote'),
+        (-1, 'Downvote'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votes')
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='votes')
+    value = models.SmallIntegerField(choices=VOTE_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        # A USER CAN HAVE ONLY ONE VOTE PER ANSWER
+        unique_together = ('user', 'answer')
