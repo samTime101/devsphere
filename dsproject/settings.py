@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'forum_details',
     'list_forums',  
     'create_forum_question',
+    'forum_question_details',
 ]
 
 MIDDLEWARE = [

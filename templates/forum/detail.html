@@ -1,5 +1,6 @@
 {% comment %} SAMIP REGMI {% endcomment %}
 {% comment %} AUGUST 28 {% endcomment %}
+{% include 'components/messages.html' %}
 
 <h1>Forum Title : {{ forum.name }}</h1>
 <p>Forum Created by : {{ forum.created_by.username }}</p>
@@ -26,8 +27,9 @@
             <strong>{{ question.title }}</strong><br>
             <p>{{ question.content }}</p>
             <p>Asked by: {{ question.created_by.username }} on {{ question.created_at }}</p>
+            <a href="{% url 'forum_question_detail' question.id %}">View Details</a>
         </li>
     {% empty %}
-        <li>No questions yet. Be the first to ask!</li>
+        <li>No questions yet, Be the first to ask!</li>
     {% endfor %}
 </ul>

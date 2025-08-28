@@ -11,6 +11,7 @@
 <body>
 
 {% include "components/navbar.html" %}
+{% include 'components/messages.html' %}
 
 <form action="{% url 'create_forum' %}" method="post" class="container mt-4">
     {% csrf_token %}
