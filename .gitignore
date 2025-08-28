@@ -36,6 +36,10 @@ __pycache__/
 /blog_app/__pycache__/
 /list_blogs/migrations/
 /list_blogs/__pycache__/
+/blog_details/migrations/
+/blog_details/__pycache__/
+/user_blogs/migrations/
+/user_blogs/__pycache__/
 /media/
 
 .env

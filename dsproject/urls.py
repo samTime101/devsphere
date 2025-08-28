@@ -20,7 +20,8 @@ from members_list.views import MembersListView
 from blog_app.views import CreateBlogView
 from list_blogs.views import ListBlogsView
 from admin_blogapproval.views import BlogApprovalView
-
+from blog_details.views import BlogDetailView
+from user_blogs.views import UserBlogsView
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('admin/', AdminView.as_view(), name='admin'),
@@ -37,6 +38,8 @@ urlpatterns = [
     path('create/blog/', CreateBlogView.as_view(), name='create_blog'),
     path('blogs/', ListBlogsView.as_view(), name='list_blogs'),
     path('admin/blogs/approval/', BlogApprovalView.as_view(), name='blog_approval'),
+    path('blog/<int:blog_id>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('myblogs/', UserBlogsView.as_view(), name='user_blogs'),
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,7 @@
 # SAMIP REGMI
 # AUGUST 28
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from sql_db.models import Blogs , User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,7 +15,7 @@ class BlogApprovalView(LoginRequiredMixin, View):
             messages.error(request, "UNAUTHORIZED ACCESS")
             return render(request, 'error.html')
 
-        blogs = Blogs.objects.filter(approved=False).order_by('-created_at')
+        blogs = Blogs.objects.order_by('-created_at')
         return_context = {'blogs': blogs}
         return render(request, 'admin/blog/list.html', return_context)
 
@@ -40,4 +40,4 @@ class BlogApprovalView(LoginRequiredMixin, View):
             return render(request, 'index.html')
 
         messages.success(request, "ACTION COMPLETED SUCCESSFULLY")
-        return render(request, 'admin/blog/list.html')
+        return redirect('/admin/blogs/approval/')
