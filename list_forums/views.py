@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-from django.shortcuts import render, redirect
 from django.views import View
 from sql_db.models import Forum , User
 from django.contrib import messages
