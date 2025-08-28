@@ -111,6 +111,16 @@ class Answer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers')
 
+    @property
+    def vote_count(self):
+        return self.votes.aggregate(total=models.Sum('value'))['total'] or 0
+    @property
+    def upvote_count(self):
+        return self.votes.filter(value=1).count()
+    @property
+    def downvote_count(self):
+        return self.votes.filter(value=-1).count()
+
 class Comment(models.Model):
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
