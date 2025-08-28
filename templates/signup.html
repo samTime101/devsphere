@@ -12,37 +12,7 @@
     <div class="min-h-screen flex items-center justify-center p-6">
       <div class="w-full max-w-5xl">
         <!-- MESSAGES -->
-        {% if messages %}
-        <div class="mb-6 space-y-3">
-          {% for message in messages %}
-          <div
-            class="ds-alert ds-alert-{% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% else %}info{% endif %} p-4 flex items-center justify-between"
-          >
-            <span>{{ message }}</span>
-            <button
-              type="button"
-              class="ds-close ml-4"
-              onclick="this.parentElement.style.display='none'"
-            >
-              <svg
-                class="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-          </div>
-          {% endfor %}
-        </div>
-        {% endif %}
-
+        {% include 'components/messages.html' %}
         <!-- SIGN UP CONTAINER -->
         <div class="ds-card overflow-hidden">
           <div class="grid grid-cols-1 md:grid-cols-2 min-h-[600px]">

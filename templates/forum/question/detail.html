@@ -1,0 +1,27 @@
+{% comment %} SAMIP REGMI {% endcomment %}
+{% comment %} AUGUST 28 {% endcomment %}
+{% include 'components/messages.html' %}
+<h1>Question Title: {{ question.title }}</h1>
+<p>Asked by: {{ question.created_by.username }} on {{ question.created_at }}</p>
+<p>Question Content:</p>
+<p>{{ question.content }}</p>
+{% comment %} YAHA COMMENT FORM {% endcomment %}
+<form method="post" action="{% url 'forum_question_detail' question.id %}">
+    {% csrf_token %}
+    <label for="content">Your Answer:</label><br>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+    <button type="submit">Post Answer</button>
+</form>
+
+<h2>Answers:</h2>
+<ul>
+    {% for answer in answers %}
+        <li>
+            <p>{{ answer.content }}</p>
+            <p>Answered by: {{ answer.created_by.username }} on {{ answer.created_at }}</p>
+            {% comment %} VOTES {% endcomment %}
+        </li>  
+    {% empty %}
+        <li>No answers yet, Be the first to answer!</li>
+    {% endfor %}
+</ul>

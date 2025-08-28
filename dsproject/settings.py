@@ -58,6 +58,11 @@ INSTALLED_APPS = [
     'admin_blogapproval',
     'blog_details',
     'user_blogs',
+    'create_forum',
+    'forum_details',
+    'list_forums',  
+    'create_forum_question',
+    'forum_question_details',
 ]
 
 MIDDLEWARE = [
@@ -100,7 +105,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'sql_db.User' 
+AUTH_USER_MODEL = 'sql_db.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -138,7 +143,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

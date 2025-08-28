@@ -1,0 +1,35 @@
+{% comment %} SAMIP REGMI {% endcomment %}
+{% comment %} AUGUST 28 {% endcomment %}
+{% include 'components/messages.html' %}
+
+<h1>Forum Title : {{ forum.name }}</h1>
+<p>Forum Created by : {{ forum.created_by.username }}</p>
+<p>Forum Created at : {{ forum.created_at }}</p>
+<p>Forum Description : {{ forum.description }}</p>
+
+<!-- CREATE QUESTIONS -->
+<form method="post" action="{% url 'create_forum_question' forum.id %}">
+    {% csrf_token %}
+    <label for="title">Question Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="content">Question Content:</label><br>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+
+    <button type="submit">Post Question</button>
+</form>
+
+<!-- LIST OF ALL QUESTIONS -->
+<h2>Questions:</h2>
+<ul>
+    {% for question in questions %}
+        <li>
+            <strong>{{ question.title }}</strong><br>
+            <p>{{ question.content }}</p>
+            <p>Asked by: {{ question.created_by.username }} on {{ question.created_at }}</p>
+            <a href="{% url 'forum_question_detail' question.id %}">View Details</a>
+        </li>
+    {% empty %}
+        <li>No questions yet, Be the first to ask!</li>
+    {% endfor %}
+</ul>
