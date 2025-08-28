@@ -6,8 +6,28 @@
 <p>Forum Created at : {{ forum.created_at }}</p>
 <p>Forum Description : {{ forum.description }}</p>
 
-{% comment %} COMMENT ADD GARNE FOROM {% endcomment %}
+<!-- CREATE QUESTIONS -->
+<form method="post" action="{% url 'create_forum_question' forum.id %}">
+    {% csrf_token %}
+    <label for="title">Question Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
 
+    <label for="content">Question Content:</label><br>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
 
-{% comment %} COMENTS KO LIST {% endcomment %}
-{% comment %} <h2>Comments:</h2> {% endcomment %}
+    <button type="submit">Post Question</button>
+</form>
+
+<!-- LIST OF ALL QUESTIONS -->
+<h2>Questions:</h2>
+<ul>
+    {% for question in questions %}
+        <li>
+            <strong>{{ question.title }}</strong><br>
+            <p>{{ question.content }}</p>
+            <p>Asked by: {{ question.created_by.username }} on {{ question.created_at }}</p>
+        </li>
+    {% empty %}
+        <li>No questions yet. Be the first to ask!</li>
+    {% endfor %}
+</ul>
