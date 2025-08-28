@@ -23,6 +23,8 @@
                     {% csrf_token %}
                     <button type="submit" class="btn btn-outline-danger">Sign Out</button>
                 </form>
+                <a href="{% url 'create_blog' %}" class="btn btn-outline-info me-2">Create blogs</a>
+                <a href="{% url 'list_blogs' %}" class="btn btn-outline-success me-2">Blogs List</a>
                 <a href="{% url 'members_list' %}" class="btn btn-outline-secondary">Members List</a>
             </div>
         </div>

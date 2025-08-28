@@ -1,0 +1,8 @@
+{% comment %} SAMIP REGMI {% endcomment %}
+{% comment %} AUGUST 28 {% endcomment %}
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Blog Title" required>
+    <textarea name="content" placeholder="Blog Content" required></textarea>
+    <button type="submit">Create Blog</button>
+</form>

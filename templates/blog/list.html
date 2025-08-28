@@ -1,0 +1,8 @@
+{% comment %} SAMIP REGMI {% endcomment %}
+{% comment %} AUGUST 28 {% endcomment %}
+{% for blog in blogs %}
+  <h2>Title:{{ blog.title }}</h2>
+  <p>Content:{{ blog.content }}</p>
+  <p>Author: {{ blog.author }}</p>
+  <hr>
+{% endfor %}

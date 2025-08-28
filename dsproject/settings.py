@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'admin_eventdelete',
     'delete_image',
     'members_list',
+    'blog_app',
+    'list_blogs',
 ]
 
 MIDDLEWARE = [

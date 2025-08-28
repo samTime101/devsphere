@@ -17,6 +17,8 @@ from admin_eventedit.views import EventEditView
 from event_app.views import EventListView
 from delete_image.views import DeleteImageView
 from members_list.views import MembersListView
+from blog_app.views import CreateBlogView
+from list_blogs.views import ListBlogsView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -31,6 +33,8 @@ urlpatterns = [
     path('delete/event/<int:event_id>/', EventDeleteView.as_view(), name='delete_event'),
     path('delete/image/', DeleteImageView.as_view(), name='delete_image'),
     path('members/', MembersListView.as_view(), name='members_list'),
+    path('create/blog/', CreateBlogView.as_view(), name='create_blog'),
+    path('blogs/', ListBlogsView.as_view(), name='list_blogs'),
 ]
 
 if settings.DEBUG:
