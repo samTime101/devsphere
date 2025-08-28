@@ -6,5 +6,6 @@
     <p>forum created by : {{ forum.created_by.username }}</p>
     <p>forum created at : {{ forum.created_at }}</p>
     <p>forum description : {{ forum.description }}</p>
+    <a href="{% url 'forum_detail' forum.id %}">View Details</a>
 </div>
 {% endfor %}
