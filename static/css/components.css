@@ -1,0 +1,289 @@
+/* DevSphere - Clean Minimal Dark UI Components */
+
+/* Import font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat";
+}
+
+/* CSS Variables for Dark Theme */
+:root {
+  /* Primary Colors */
+  --primary-50: #f0f9ff;
+  --primary-100: #e0f2fe;
+  --primary-200: #bae6fd;
+  --primary-300: #7dd3fc;
+  --primary-400: #38bdf8;
+  --primary-500: #0ea5e9;
+  --primary-600: #0284c7;
+  --primary-700: #0369a1;
+  --primary-800: #075985;
+  --primary-900: #0c4a6e;
+
+  /* Dark Theme Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-hover: #3a3a3a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --border-primary: #27272a;
+  --border-secondary: #3f3f46;
+
+  /* Success/Error Colors */
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Border Radius */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+}
+
+/* Base Styles */
+.ds-body {
+  background: linear-gradient(315deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+/* Container Components */
+.ds-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ds-container-sm {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ds-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.ds-card-body {
+  padding: 2rem;
+}
+
+/* Button Components */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.ds-btn:focus {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+.ds-btn-primary {
+  background-color: var(--primary-600);
+  color: white;
+}
+
+.ds-btn-primary:hover {
+  background-color: var(--primary-700);
+  color: white;
+}
+
+.ds-btn-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-secondary);
+}
+
+.ds-btn-secondary:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.ds-btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.ds-btn-md {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.ds-btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.ds-btn-full {
+  width: 100%;
+}
+
+/* Input Components */
+.ds-input {
+  width: 100%;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease-in-out;
+}
+
+.ds-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgb(14 165 233 / 0.1);
+}
+
+.ds-input::placeholder {
+  color: var(--text-muted);
+}
+
+.ds-input-sm {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.ds-input-md {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.ds-input-lg {
+  padding: 1rem 1.25rem;
+  font-size: 1.125rem;
+}
+
+.ds-select {
+  width: 100%;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease-in-out;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.ds-select:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgb(14 165 233 / 0.1);
+}
+
+/* Label Components */
+.ds-label {
+  display: block;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+/* Alert Components */
+.ds-alert {
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.ds-alert-success {
+  background-color: rgb(16 185 129 / 0.1);
+  border: 1px solid rgb(16 185 129 / 0.2);
+  color: var(--success);
+}
+
+.ds-alert-error {
+  background-color: rgb(239 68 68 / 0.1);
+  border: 1px solid rgb(239 68 68 / 0.2);
+  color: var(--error);
+}
+
+.ds-alert-warning {
+  background-color: rgb(245 158 11 / 0.1);
+  border: 1px solid rgb(245 158 11 / 0.2);
+  color: var(--warning);
+}
+
+.ds-alert-info {
+  background-color: rgb(14 165 233 / 0.1);
+  border: 1px solid rgb(14 165 233 / 0.2);
+  color: var(--primary-400);
+}
+
+/* Link Components */
+.ds-link {
+  color: var(--primary-400);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.ds-link:hover {
+  color: var(--primary-300);
+  text-decoration: underline;
+}
+
+/* Text Components */
+.ds-text-primary {
+  color: var(--text-primary);
+}
+
+.ds-text-secondary {
+  color: var(--text-secondary);
+}
+
+.ds-text-muted {
+  color: var(--text-muted);
+}
+
+.ds-heading {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Form Group */
+.ds-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Close Button */
+.ds-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s ease-in-out;
+}
+
+.ds-close:hover {
+  color: var(--text-primary);
+}
