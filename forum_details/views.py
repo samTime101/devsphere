@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ForumDetailsView(LoginRequiredMixin, View):
+class ForumDetailView(LoginRequiredMixin, View):
     def get(self, request, forum_id):
         try:
             forum = Forum.objects.get(id=forum_id)

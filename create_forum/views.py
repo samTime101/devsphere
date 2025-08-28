@@ -28,4 +28,4 @@ class CreateForumView(LoginRequiredMixin, View):
         )
         forum.save()
         messages.success(request, "FORUM CREATED SUCCESSFULLY!")
-        return redirect('list_forums')
+        return redirect('forum_detail', forum_id=forum.id)
