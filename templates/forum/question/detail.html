@@ -1,27 +1,78 @@
-{% comment %} SAMIP REGMI {% endcomment %}
-{% comment %} AUGUST 28 {% endcomment %}
-{% include 'components/messages.html' %}
-<h1>Question Title: {{ question.title }}</h1>
-<p>Asked by: {{ question.created_by.username }} on {{ question.created_at }}</p>
-<p>Question Content:</p>
-<p>{{ question.content }}</p>
-{% comment %} YAHA COMMENT FORM {% endcomment %}
-<form method="post" action="{% url 'forum_question_detail' question.id %}">
-    {% csrf_token %}
-    <label for="content">Your Answer:</label><br>
-    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
-    <button type="submit">Post Answer</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ question.title }} - Question</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-<h2>Answers:</h2>
-<ul>
-    {% for answer in answers %}
-        <li>
-            <p>{{ answer.content }}</p>
-            <p>Answered by: {{ answer.created_by.username }} on {{ answer.created_at }}</p>
-            {% comment %} VOTES {% endcomment %}
-        </li>  
-    {% empty %}
-        <li>No answers yet, Be the first to answer!</li>
-    {% endfor %}
-</ul>
+{% include 'components/messages.html' %}
+{% include 'components/navbar.html' %}
+
+<div class="container my-5">
+    <!-- QUESTION CARD -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h1 class="card-title">{{ question.title }}</h1>
+            <h6 class="card-subtitle mb-2 text-muted">
+                Asked by {{ question.created_by.username }} on {{ question.created_at|date:"M d, Y" }}
+            </h6>
+            <p class="card-text">{{ question.content }}</p>
+        </div>
+    </div>
+
+    <!-- ANSWER FORM -->
+    <div class="card mb-5 shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title">Your Answer</h4>
+            <form method="post" action="{% url 'forum_question_detail' question.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <textarea id="content" name="content" rows="4" class="form-control" placeholder="Write your answer..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Answer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ANSWERS LIST -->
+    <h2 class="mb-3">Answers</h2>
+    <div class="row g-4">
+        {% for answer in answers %}
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-text">{{ answer.content }}</p>
+                        <p class="text-muted mb-3">Answered by {{ answer.created_by.username }} on {{ answer.created_at|date:"M d, Y" }}</p>
+
+                        <div class="d-flex gap-2">
+                            <form method="post" action="{% url 'vote_answer' answer.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="value" value="1">
+                                <button type="submit" class="btn btn-success btn-sm">Upvote ({{ answer.upvote_count }})</button>
+                            </form>
+
+                            <form method="post" action="{% url 'vote_answer' answer.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="value" value="-1">
+                                <button type="submit" class="btn btn-danger btn-sm">Downvote ({{ answer.downvote_count }})</button>
+                            </form>
+
+                            <span class="ms-auto badge bg-secondary">Total: {{ answer.vote_count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">no answers, be the first to answer</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

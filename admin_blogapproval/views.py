@@ -13,7 +13,7 @@ class BlogApprovalView(LoginRequiredMixin, View):
     def get(self, request):
         if not request.user.is_superuser:
             messages.error(request, "UNAUTHORIZED ACCESS")
-            return render(request, 'error.html')
+            return render(request,"index.html")
 
         blogs = Blogs.objects.order_by('-created_at')
         return_context = {'blogs': blogs}

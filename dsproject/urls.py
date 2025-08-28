@@ -27,6 +27,7 @@ from list_forums.views import ListForumsView
 from forum_details.views import ForumDetailView
 from create_forum_question.views import CreateForumQuestionView
 from forum_question_details.views import ForumQuestionDetailView
+from answer_forumquestion.views import VoteAnswerView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -51,6 +52,7 @@ urlpatterns = [
     path('forum/<int:forum_id>/', ForumDetailView.as_view(), name='forum_detail'),
     path('forum/<int:forum_id>/ask/', CreateForumQuestionView.as_view(), name='create_forum_question'),
     path('forum/question/<int:question_id>/', ForumQuestionDetailView.as_view(), name='forum_question_detail'),
+    path('forum/question/<int:answer_id>/vote/', VoteAnswerView.as_view(), name='vote_answer'),
 ]
 
 if settings.DEBUG:
