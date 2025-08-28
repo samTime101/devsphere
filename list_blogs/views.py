@@ -10,8 +10,8 @@ class ListBlogsView(LoginRequiredMixin, View):
     login_url = '/signin/'  
 
     def get(self, request):
-        blogs = Blogs.objects.all().order_by('-created_at')
+        approved_blogs = Blogs.objects.filter(approved=True).order_by('-created_at')
         return_response = {
-            'blogs': blogs
+            'blogs': approved_blogs
         }
         return render(request, 'blog/list.html', return_response)

@@ -19,6 +19,7 @@ from delete_image.views import DeleteImageView
 from members_list.views import MembersListView
 from blog_app.views import CreateBlogView
 from list_blogs.views import ListBlogsView
+from admin_blogapproval.views import BlogApprovalView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('members/', MembersListView.as_view(), name='members_list'),
     path('create/blog/', CreateBlogView.as_view(), name='create_blog'),
     path('blogs/', ListBlogsView.as_view(), name='list_blogs'),
+    path('admin/blogs/approval/', BlogApprovalView.as_view(), name='blog_approval'),
 ]
 
 if settings.DEBUG:

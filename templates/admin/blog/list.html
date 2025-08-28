@@ -1,0 +1,29 @@
+{% comment %} SAMIP REGMI {% endcomment %}
+{% comment %} AUGUST 28 {% endcomment %}
+  <h1>Unapproved Blogs</h1>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if blogs %}
+    {% for blog in blogs %}
+      <div class="blog-card">
+        <h2>{{ blog.title }}</h2>
+        <p>{{ blog.content }}</p>
+        <p><strong>Author:</strong> {{ blog.author }}</p>
+        <form method="post" style="display: inline;">
+          {% csrf_token %}
+          <input type="hidden" name="blog_id" value="{{ blog.id }}">
+          <button type="submit" name="action" value="approve">Approve</button>
+          <button type="submit" name="action" value="reject" onclick="return confirm('Are you sure you want to reject this blog?');">Reject</button>
+        </form>
+        <hr>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No unapproved blogs available</p>
+  {% endif %}

@@ -4,5 +4,8 @@
   <h2>Title:{{ blog.title }}</h2>
   <p>Content:{{ blog.content }}</p>
   <p>Author: {{ blog.author }}</p>
+  <p>Created At: {{ blog.created_at }}</p>
   <hr>
+{% empty %}
+  <p>No approved blogs available</p>
 {% endfor %}

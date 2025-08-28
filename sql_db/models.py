@@ -78,6 +78,7 @@ class Blogs(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to=blog_image_path, blank=True, null=True)
+    approved = models.BooleanField(default=False)
 
 
 class DiscordMember(models.Model):

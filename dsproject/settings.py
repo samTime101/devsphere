@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'members_list',
     'blog_app',
     'list_blogs',
+    'admin_blogapproval',
 ]
 
 MIDDLEWARE = [
