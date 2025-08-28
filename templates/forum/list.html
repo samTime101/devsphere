@@ -1,0 +1,10 @@
+{% comment %} SAMIP REGMI {% endcomment %}
+{% comment %} AUGUST 28 {% endcomment %}
+{% for forum in forums %}
+<div>
+    <h1>forum title : {{ forum.name }}</h1>
+    <p>forum created by : {{ forum.created_by.username }}</p>
+    <p>forum created at : {{ forum.created_at }}</p>
+    <p>forum description : {{ forum.description }}</p>
+</div>
+{% endfor %}
