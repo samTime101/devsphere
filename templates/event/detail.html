@@ -39,11 +39,11 @@
 
         <!-- EVENT BANNER -->
         {% if event.banner_image %}
-        <div class="ds-card mb-6 overflow-hidden">
+        <div class="ds-card mb-6 overflow-hidden group">
           <img
             src="{{ event.banner_image.url }}"
             alt="{{ event.name }}"
-            class="w-full h-48 lg:h-64 object-cover"
+            class="w-full h-48 lg:h-64 object-contain group-hover:scale-110 transition-transform duration-300"
           />
         </div>
         {% endif %}
