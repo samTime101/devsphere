@@ -17,49 +17,87 @@
 
     <div class="ds-container mx-auto px-4 py-8">
       <!-- EVENTS -->
-      <h1 class="ds-heading text-4xl text-center mb-8">Events</h1>
+      <h1 class="ds-heading text-4xl text-center mb-8">Upcoming Events</h1>
 
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for event in events %}
-        <div class="col">
-          <div class="card h-100 shadow-sm border-0">
+        <div class="w-full">
+          <div class="ds-card h-full group">
             {% if event.banner_image %}
-            <img
-              src="{{ event.banner_image.url }}"
-              class="card-img-top rounded-top"
-              alt="{{ event.name }}"
-            />
-            {% endif %}
-            <div class="card-body">
-              <a
-                href="{% url 'event_detail' event.id %}"
-                class="text-decoration-none text-dark"
-              >
-                <h5 class="card-title fw-bold">{{ event.name }}</h5>
-              </a>
-              <p class="mb-0">
-                <strong>Status:</strong>
-                {% if event.status == "upcoming" %}
-                <span class="badge bg-success">{{ event.status }}</span>
-                {% elif event.status == "ongoing" %}
-                <span class="badge bg-warning text-dark"
-                  >{{ event.status }}</span
-                >
-                {% else %}
-                <span class="badge bg-secondary">{{ event.status }}</span>
-                {% endif %}
-              </p>
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="{{ event.banner_image.url }}"
+                class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                alt="{{ event.name }}"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
-            <div class="card-footer bg-light border-0">
-              <small class="text-muted d-block">Date: {{ event.date }}</small>
-              <small class="text-muted d-block"
-                >Location: {{ event.location }}</small
+            {% endif %}
+            <div class="ds-card-body">
+              <div
+                class="ds-link block hover:no-underline"
               >
+                <h5 class="ds-heading text-xl mb-3 line-clamp-2">{{ event.name }}</h5>
+              </div>
+              
+              <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="ds-text-secondary text-sm font-medium">Status:</span>
+                  {% if event.status == "upcoming" %}
+                  <span class="px-2 py-1 text-xs rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
+                    {{ event.get_status_display }}
+                  </span>
+                  {% elif event.status == "ongoing" %}
+                  <span class="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                    {{ event.get_status_display }}
+                  </span>
+                  {% else %}
+                  <span class="px-2 py-1 text-xs rounded-full bg-gray-500/20 text-gray-400 border border-gray-500/30">
+                    {{ event.get_status_display }}
+                  </span>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="space-y-2 ds-text-secondary text-sm">
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  {{ event.date }}
+                </div>
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  {{ event.location }}
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <a
+                  href="{% url 'event_detail' event.id %}"
+                  class="ds-btn ds-btn-primary ds-btn-sm ds-btn-full"
+                >
+                  View Details
+                </a>
+              </div>
             </div>
           </div>
         </div>
         {% empty %}
-        <p class="text-center text-muted">No upcoming events available.</p>
+        <div class="col-span-full text-center py-12">
+          <div class="ds-card">
+            <div class="ds-card-body">
+              <svg class="w-16 h-16 mx-auto mb-4 ds-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="ds-text-muted text-lg">No upcoming events available.</p>
+              <p class="ds-text-secondary text-sm mt-2">Check back later for exciting events!</p>
+            </div>
+          </div>
+        </div>
         {% endfor %}
       </div>
     </div>

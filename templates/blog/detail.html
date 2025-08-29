@@ -1,49 +1,113 @@
-{% comment %} AUGUST 28 SAMIP REGMI {% endcomment %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ blog.title }}</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <title>{{ blog.title }} - DevSphere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/components.css' %}" />
   </head>
-  <body>
-    <div class="w-full px-4 py-8">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-          <div class="card shadow-lg border-0">
-            <div class="card-body">
-              <h1 class="card-title fw-bold mb-3">{{ blog.title }}</h1>
-              <p class="text-muted mb-3">
-                <strong>Author:</strong> {{ blog.author }} |
-                <strong>Created At:</strong> {{ blog.created_at }}
-              </p>
-              <hr />
-              <p class="card-text">{{ blog.content }}</p>
-            </div>
+  <body class="ds-body">
+    <!-- TOAST MESSAGES -->
+    {% include 'components/messages.html' %}
 
-            <div
-              class="card-footer bg-light border-0 d-flex justify-content-between"
+    <!-- NAVBAR -->
+    {% include "components/navbar.html" %}
+
+    <div class="ds-container mx-auto px-4 py-8">
+      <div class="mx-auto">
+        <!-- BACK BUTTON -->
+        <div class="mb-6">
+          <a
+            href="{% url 'list_blogs' %}"
+            class="ds-btn ds-btn-secondary ds-btn-sm"
+          >
+            <svg
+              class="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <a href="{% url 'list_blogs' %}" class="btn btn-outline-secondary"
-                >← Back to Blogs</a
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              ></path>
+            </svg>
+            Back to Blogs
+          </a>
+        </div>
+
+        <!-- BLOG CONTENT -->
+        <article class="ds-card">
+          <div class="ds-card-body">
+            <!-- BLOG HEADER -->
+            <header>
+              <h1 class="ds-heading text-2xl lg:text-3xl mb-4 leading-tight">
+                {{ blog.title }}
+              </h1>
+
+              <!-- AUTHOR INFO -->
+              <div
+                class="flex items-center justify-between flex-wrap gap-4 pb-6 border-b border-gray-700"
               >
-              {% if user == blog.author %}
-              <a
-                href="{% url 'edit_blog' blog.id %}"
-                class="btn btn-outline-primary"
-                >Edit Blog</a
+                <div class="flex items-center space-x-4">
+                  <!-- <div
+                    class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center"
+                  >
+                    <span class="text-white text-lg font-bold"
+                      >{{ blog.author.username|first|upper }}</span
+                    >
+                  </div> -->
+                  <div>
+                    <h3 class="ds-text-primary font-semibold">
+                      {{ blog.author.username }}
+                    </h3>
+                    <p class="ds-text-secondary text-sm">
+                      {{ blog.created_at|date:"F d, Y \a\t g:i A" }}
+                    </p>
+                  </div>
+                </div>
+
+                {% if user == blog.author %}
+                <div class="flex items-center space-x-2">
+                  <a
+                    href="{% url 'edit_blog' blog.id %}"
+                    class="ds-btn ds-btn-secondary ds-btn-sm"
+                  >
+                    <svg
+                      class="w-4 h-4 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      ></path>
+                    </svg>
+                    Edit
+                  </a>
+                </div>
+                {% endif %}
+              </div>
+            </header>
+
+            <!-- BLOG CONTENT -->
+            <div class="prose prose-invert max-w-none">
+              <div
+                class="ds-text-primary leading-relaxed whitespace-pre-line break-words"
               >
-              {% endif %}
+                {{ blog.content }}
+              </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
