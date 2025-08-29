@@ -1,78 +1,86 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ question.title }} - Question</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>{{ question.title }} - Question - DevSphere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/components.css' %}" />
 </head>
-<body>
+<body class="ds-body">
 
+<!-- TOAST MESSAGES -->
 {% include 'components/messages.html' %}
+
+<!-- NAVBAR -->
 {% include 'components/navbar.html' %}
 
-<div class="container my-5">
+<div class="ds-container mx-auto px-4 py-8">
     <!-- QUESTION CARD -->
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h1 class="card-title">{{ question.title }}</h1>
-            <h6 class="card-subtitle mb-2 text-muted">
+    <div class="ds-card mb-6">
+        <div class="ds-card-body">
+            <h1 class="ds-heading text-3xl mb-4">{{ question.title }}</h1>
+            <h6 class="ds-text-secondary text-sm mb-4">
                 Asked by {{ question.created_by.username }} on {{ question.created_at|date:"M d, Y" }}
             </h6>
-            <p class="card-text">{{ question.content }}</p>
-        </div>
+            <p class="ds-text-secondary">{{ question.content }}</p>
     </div>
 
     <!-- ANSWER FORM -->
-    <div class="card mb-5 shadow-sm">
-        <div class="card-body">
-            <h4 class="card-title">Your Answer</h4>
-            <form method="post" action="{% url 'forum_question_detail' question.id %}">
+    <div class="ds-card mb-6">
+        <div class="ds-card-body">
+            <h4 class="ds-heading text-xl mb-4">Your Answer</h4>
+            <form method="post" action="{% url 'forum_question_detail' question.id %}" class="space-y-4">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <textarea id="content" name="content" rows="4" class="form-control" placeholder="Write your answer..." required></textarea>
+                <div class="ds-form-group">
+                    <textarea id="content" name="content" rows="4" class="ds-input ds-input-md" placeholder="Write your answer..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Post Answer</button>
+                <button type="submit" class="ds-btn ds-btn-primary ds-btn-md">Post Answer</button>
             </form>
         </div>
     </div>
 
     <!-- ANSWERS LIST -->
-    <h2 class="mb-3">Answers</h2>
-    <div class="row g-4">
+    <h2 class="ds-heading text-2xl mb-6">Answers</h2>
+    <div class="space-y-4">
         {% for answer in answers %}
-            <div class="col-12">
-                <div class="card shadow-sm">
-                    <div class="card-body d-flex flex-column">
-                        <p class="card-text">{{ answer.content }}</p>
-                        <p class="text-muted mb-3">Answered by {{ answer.created_by.username }} on {{ answer.created_at|date:"M d, Y" }}</p>
+            <div class="w-full">
+                <div class="ds-card">
+                    <div class="ds-card-body">
+                        <p class="ds-text-secondary mb-4">{{ answer.content }}</p>
+                        <p class="ds-text-muted text-sm mb-4">Answered by {{ answer.created_by.username }} on {{ answer.created_at|date:"M d, Y" }}</p>
 
-                        <div class="d-flex gap-2">
-                            <form method="post" action="{% url 'vote_answer' answer.id %}">
+                        <div class="flex items-center space-x-3">
+                            <form method="post" action="{% url 'vote_answer' answer.id %}" class="inline">
                                 {% csrf_token %}
                                 <input type="hidden" name="value" value="1">
-                                <button type="submit" class="btn btn-success btn-sm">Upvote ({{ answer.upvote_count }})</button>
+                                <button type="submit" class="ds-btn ds-btn-sm bg-green-600 hover:bg-green-700 text-white border-green-600">
+                                    👍 {{ answer.upvote_count }}
+                                </button>
                             </form>
 
-                            <form method="post" action="{% url 'vote_answer' answer.id %}">
+                            <form method="post" action="{% url 'vote_answer' answer.id %}" class="inline">
                                 {% csrf_token %}
                                 <input type="hidden" name="value" value="-1">
-                                <button type="submit" class="btn btn-danger btn-sm">Downvote ({{ answer.downvote_count }})</button>
+                                <button type="submit" class="ds-btn ds-btn-sm bg-red-600 hover:bg-red-700 text-white border-red-600">
+                                    👎 {{ answer.downvote_count }}
+                                </button>
                             </form>
 
-                            <span class="ms-auto badge bg-secondary">Total: {{ answer.vote_count }}</span>
+                            <span class="ds-alert ds-alert-info inline-block px-2 py-1 text-xs rounded ml-auto">
+                                Total: {{ answer.vote_count }}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <div class="col-12">
-                <p class="text-center text-muted">no answers, be the first to answer</p>
+            <div class="w-full text-center">
+                <p class="ds-text-muted text-lg">No answers yet, be the first to answer!</p>
             </div>
         {% endfor %}
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

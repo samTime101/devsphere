@@ -1,80 +1,306 @@
-{% comment %} WORKING LETS GOOO {% endcomment %}
-{% comment %} SAMIP REGMI {% endcomment %}
-{% comment %} AUGUST 25 {% endcomment %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ event.name }} | Event Details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-{% include "components/navbar.html" %}  
-{% include 'components/messages.html' %}
-<div class="container my-5">
-    <h1 class="mb-3">{{ event.name }}</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ event.name }} - Event Details - DevSphere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/components.css' %}" />
+  </head>
+  <body class="ds-body">
+    <!-- TOAST MESSAGES -->
+    {% include 'components/messages.html' %}
 
-    <div class="mb-4">
-        <p>{{ event.description }}</p>
-        <p><strong>Date:</strong> {{ event.date }}</p>
-        <p><strong>Location:</strong> {{ event.location }}</p>
-    </div>
+    <!-- NAVBAR -->
+    {% include "components/navbar.html" %}
 
-    {% if event.banner_image %}
-        <div class="mb-4">
-            <img src="{{ event.banner_image.url }}" alt="{{ event.name }}" class="img-fluid rounded">
+    <div class="ds-container mx-auto px-4 py-8">
+      <div class="mx-auto">
+        <!-- BACK BUTTON -->
+        <div class="mb-6">
+          <a href="/" class="ds-btn ds-btn-secondary ds-btn-sm">
+            <svg
+              class="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              ></path>
+            </svg>
+            Back to Events
+          </a>
         </div>
-    {% endif %}
 
-    {% if event.event_guest_speaker %}
-        <div class="mb-4 p-3 border rounded">
-            <h4>Guest Speaker: {{ event.event_guest_speaker }}</h4>
-            {% if event.event_guest_speaker_image %}
-                <img src="{{ event.event_guest_speaker_image.url }}" alt="Guest Speaker" class="img-fluid rounded mb-2" style="max-width: 200px;">
-            {% endif %}
-            {% if event.event_guest_speaker_bio %}
-                <p>{{ event.event_guest_speaker_bio }}</p>
-            {% endif %}
+        <!-- EVENT BANNER -->
+        {% if event.banner_image %}
+        <div class="ds-card mb-6 overflow-hidden group">
+          <img
+            src="{{ event.banner_image.url }}"
+            alt="{{ event.name }}"
+            class="w-full h-48 lg:h-64 object-contain group-hover:scale-110 transition-transform duration-300"
+          />
         </div>
-    {% endif %}
-
-    {% if event.images.all %}
-        <h4 class="mb-3">Additional Images</h4>
-        <div class="row">
-            {% for img in event.images.all %}
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <img src="{{ img.image.url }}" class="card-img-top" alt="Additional Image">
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% if event.registration_link %}
-        {% if event.status != "completed" %}
-            <div class="mt-4">
-                <a href="{{ event.registration_link }}" class="btn btn-primary btn-lg">Register Here</a>
-            </div>
-        {% else %}
-            <div class="mt-4">
-                <button class="btn btn-secondary btn-lg" disabled>Registration Closed</button>
-            </div>
         {% endif %}
-    {% endif %}
 
+        <!-- EVENT MAIN CONTENT -->
+        <div class="ds-card mb-6">
+          <div class="ds-card-body">
+            <!-- EVENT HEADER -->
+            <div class="mb-6">
+              <div
+                class="flex items-center justify-between flex-wrap gap-4 mb-4"
+              >
+                <div>
+                  {% if event.status == "upcoming" %}
+                  <span
+                    class="px-3 py-1 text-sm rounded-full bg-green-500/20 text-green-400 border border-green-500/30"
+                  >
+                    {{ event.get_status_display }}
+                  </span>
+                  {% elif event.status == "ongoing" %}
+                  <span
+                    class="px-3 py-1 text-sm rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                  >
+                    {{ event.get_status_display }}
+                  </span>
+                  {% else %}
+                  <span
+                    class="px-3 py-1 text-sm rounded-full bg-gray-500/20 text-gray-400 border border-gray-500/30"
+                  >
+                    {{ event.get_status_display }}
+                  </span>
+                  {% endif %}
+                </div>
 
-    <div class="mt-5 p-3 border rounded bg-light">
-        <h5>Event Info</h5>
-        <ul class="list-unstyled">
-            <li><strong>Status:</strong> {{ event.get_status_display }}</li>
-            <li><strong>Organized By:</strong> {{ event.organized_by }}</li>
-            <li><strong>Starts:</strong> {{ event.event_starting_date_time }}</li>
-            <li><strong>Ends:</strong> {{ event.event_ending_date_time }}</li>
-        </ul>
+                {% if event.registration_link %} {% if event.status != "completed" %}
+                <a
+                  href="{{ event.registration_link }}"
+                  class="ds-btn ds-btn-primary ds-btn-sm"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"
+                    ></path>
+                  </svg>
+                  Register Now
+                </a>
+                {% else %}
+                <button class="ds-btn ds-btn-secondary ds-btn-sm" disabled>
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                  Registration Closed
+                </button>
+                {% endif %} {% endif %}
+              </div>
+
+              <h1 class="ds-heading text-2xl lg:text-3xl mb-4 leading-tight">
+                {{ event.name }}
+              </h1>
+              <p class="ds-text-secondary leading-relaxed">
+                {{ event.description }}
+              </p>
+            </div>
+
+            <!-- EVENT DETAILS GRID -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-3 text-blue-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  <div>
+                    <p class="ds-text-secondary text-sm">Date</p>
+                    <p class="ds-text-primary font-medium">{{ event.date }}</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-3 text-green-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                  </svg>
+                  <div>
+                    <p class="ds-text-secondary text-sm">Location</p>
+                    <p class="ds-text-primary font-medium">
+                      {{ event.location }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-3 text-purple-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                  <div>
+                    <p class="ds-text-secondary text-sm">Start Time</p>
+                    <p class="ds-text-primary font-medium">
+                      {{ event.event_starting_date_time|date:"M d, Y g:i A" }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-3 text-red-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                  <div>
+                    <p class="ds-text-secondary text-sm">End Time</p>
+                    <p class="ds-text-primary font-medium">
+                      {{ event.event_ending_date_time|date:"M d, Y g:i A" }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ORGANIZED BY -->
+            <div class="ds-alert ds-alert-info w-fit px-4 py-2">
+              <div class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  ></path>
+                </svg>
+                <span class="text-sm"
+                  ><strong>Organized by:</strong> {{ event.organized_by }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUEST SPEAKER SECTION -->
+        {% if event.event_guest_speaker %}
+        <div class="ds-card">
+          <div class="ds-card-body">
+            <h3 class="ds-heading text-xl mb-4">Guest Speaker</h3>
+            <div
+              class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6"
+            >
+              {% if event.event_guest_speaker_image %}
+              <div class="flex-shrink-0">
+                <img
+                  src="{{ event.event_guest_speaker_image.url }}"
+                  alt="Guest Speaker"
+                  class="w-20 h-20 rounded-full object-cover border-2 border-gray-600"
+                />
+              </div>
+              {% endif %}
+              <div>
+                <h4 class="ds-text-primary text-lg font-semibold mb-2">
+                  {{ event.event_guest_speaker }}
+                </h4>
+                {% if event.event_guest_speaker_bio %}
+                <p class="ds-text-secondary text-sm">
+                  {{ event.event_guest_speaker_bio }}
+                </p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- ADDITIONAL IMAGES -->
+        {% if event.images.all %}
+        <div class="ds-card">
+          <div class="ds-card-body">
+            <h3 class="ds-heading text-xl mb-4">Event Gallery</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {% for img in event.images.all %}
+              <div class="ds-card overflow-hidden">
+                <img
+                  src="{{ img.image.url }}"
+                  class="w-full h-40 object-cover hover:scale-105 transition-transform duration-300"
+                  alt="Event Image"
+                />
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
     </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>
