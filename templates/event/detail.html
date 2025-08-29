@@ -1,80 +1,91 @@
-{% comment %} WORKING LETS GOOO {% endcomment %}
-{% comment %} SAMIP REGMI {% endcomment %}
-{% comment %} AUGUST 25 {% endcomment %}
+{% comment %} WORKING LETS GOOO {% endcomment %} {% comment %} SAMIP REGMI {%
+endcomment %} {% comment %} AUGUST 25 {% endcomment %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ event.name }} | Event Details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-{% include "components/navbar.html" %}  
-{% include 'components/messages.html' %}
-<div class="container my-5">
-    <h1 class="mb-3">{{ event.name }}</h1>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    {% include "components/navbar.html" %} {% include 'components/messages.html'
+    %}
+    <div class="w-full px-4 py-8">
+      <h1 class="mb-3">{{ event.name }}</h1>
 
-    <div class="mb-4">
+      <div class="mb-4">
         <p>{{ event.description }}</p>
         <p><strong>Date:</strong> {{ event.date }}</p>
         <p><strong>Location:</strong> {{ event.location }}</p>
-    </div>
+      </div>
 
-    {% if event.banner_image %}
-        <div class="mb-4">
-            <img src="{{ event.banner_image.url }}" alt="{{ event.name }}" class="img-fluid rounded">
-        </div>
-    {% endif %}
-
-    {% if event.event_guest_speaker %}
-        <div class="mb-4 p-3 border rounded">
-            <h4>Guest Speaker: {{ event.event_guest_speaker }}</h4>
-            {% if event.event_guest_speaker_image %}
-                <img src="{{ event.event_guest_speaker_image.url }}" alt="Guest Speaker" class="img-fluid rounded mb-2" style="max-width: 200px;">
-            {% endif %}
-            {% if event.event_guest_speaker_bio %}
-                <p>{{ event.event_guest_speaker_bio }}</p>
-            {% endif %}
-        </div>
-    {% endif %}
-
-    {% if event.images.all %}
-        <h4 class="mb-3">Additional Images</h4>
-        <div class="row">
-            {% for img in event.images.all %}
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <img src="{{ img.image.url }}" class="card-img-top" alt="Additional Image">
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% if event.registration_link %}
-        {% if event.status != "completed" %}
-            <div class="mt-4">
-                <a href="{{ event.registration_link }}" class="btn btn-primary btn-lg">Register Here</a>
-            </div>
-        {% else %}
-            <div class="mt-4">
-                <button class="btn btn-secondary btn-lg" disabled>Registration Closed</button>
-            </div>
+      {% if event.banner_image %}
+      <div class="mb-4">
+        <img
+          src="{{ event.banner_image.url }}"
+          alt="{{ event.name }}"
+          class="img-fluid rounded"
+        />
+      </div>
+      {% endif %} {% if event.event_guest_speaker %}
+      <div class="mb-4 p-3 border rounded">
+        <h4>Guest Speaker: {{ event.event_guest_speaker }}</h4>
+        {% if event.event_guest_speaker_image %}
+        <img
+          src="{{ event.event_guest_speaker_image.url }}"
+          alt="Guest Speaker"
+          class="img-fluid rounded mb-2"
+          style="max-width: 200px"
+        />
+        {% endif %} {% if event.event_guest_speaker_bio %}
+        <p>{{ event.event_guest_speaker_bio }}</p>
         {% endif %}
-    {% endif %}
+      </div>
+      {% endif %} {% if event.images.all %}
+      <h4 class="mb-3">Additional Images</h4>
+      <div class="row">
+        {% for img in event.images.all %}
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img
+              src="{{ img.image.url }}"
+              class="card-img-top"
+              alt="Additional Image"
+            />
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% if event.registration_link %} {% if event.status !=
+      "completed" %}
+      <div class="mt-4">
+        <a href="{{ event.registration_link }}" class="btn btn-primary btn-lg"
+          >Register Here</a
+        >
+      </div>
+      {% else %}
+      <div class="mt-4">
+        <button class="btn btn-secondary btn-lg" disabled>
+          Registration Closed
+        </button>
+      </div>
+      {% endif %} {% endif %}
 
-
-    <div class="mt-5 p-3 border rounded bg-light">
+      <div class="mt-5 p-3 border rounded bg-light">
         <h5>Event Info</h5>
         <ul class="list-unstyled">
-            <li><strong>Status:</strong> {{ event.get_status_display }}</li>
-            <li><strong>Organized By:</strong> {{ event.organized_by }}</li>
-            <li><strong>Starts:</strong> {{ event.event_starting_date_time }}</li>
-            <li><strong>Ends:</strong> {{ event.event_ending_date_time }}</li>
+          <li><strong>Status:</strong> {{ event.get_status_display }}</li>
+          <li><strong>Organized By:</strong> {{ event.organized_by }}</li>
+          <li><strong>Starts:</strong> {{ event.event_starting_date_time }}</li>
+          <li><strong>Ends:</strong> {{ event.event_ending_date_time }}</li>
         </ul>
+      </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

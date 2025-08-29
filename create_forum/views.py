@@ -11,16 +11,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class CreateForumView(LoginRequiredMixin, View):
     login_url = '/signin/'
     def get(self, request):
-        if not request.user.is_superuser:
-            messages.error(request,"UNAUTHORIZED ACCESS")
-            return redirect('index')
         return render(request, 'forum/create.html')
 
     def post(self, request):
-        if not request.user.is_superuser:
-            messages.error(request, "UNAUTHORIZED ACCESS")
-            return render(request, 'index.html')
-
         title = request.POST.get('title')
         description = request.POST.get('description')
         created_by = request.user

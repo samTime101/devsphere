@@ -68,7 +68,7 @@
 
 /* Container Components */
 .ds-container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -102,8 +102,7 @@
 }
 
 .ds-btn:focus {
-  outline: 2px solid var(--primary-500);
-  outline-offset: 2px;
+  outline: none;
 }
 
 .ds-btn-primary {
@@ -154,6 +153,24 @@
   border-radius: var(--radius-md);
   color: var(--text-primary);
   transition: border-color 0.2s ease-in-out;
+  resize: none; /* Prevent resizing for all inputs */
+}
+
+/* Specifically target textarea and input elements */
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"] {
+  resize: none !important; /* Force no resize on all text inputs and textareas */
+}
+
+/* Also target Bootstrap form-control class if used */
+.form-control {
+  resize: none !important;
 }
 
 .ds-input:focus {
@@ -286,4 +303,86 @@
 
 .ds-close:hover {
   color: var(--text-primary);
+}
+
+/* Navbar Enhancements */
+.ds-navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.ds-navbar-brand:hover .ds-navbar-icon {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.ds-navbar-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Dropdown Animation */
+.ds-dropdown {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(-8px) scale(0.95);
+}
+
+.ds-dropdown.show {
+  transform: translateY(0) scale(1);
+}
+
+/* Mobile Menu Animation */
+.ds-mobile-menu {
+  transition: all 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.ds-mobile-menu.show {
+  max-height: 400px;
+}
+
+/* Mobile menu overlay styles */
+#mobile-menu {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+#mobile-menu:not(.hidden) {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Status Indicator */
+.ds-status-indicator {
+  position: relative;
+}
+
+.ds-status-indicator::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--success);
+  border: 2px solid var(--bg-secondary);
+  border-radius: 50%;
+  transform: translate(25%, -25%);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.ds-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

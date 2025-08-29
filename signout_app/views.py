@@ -7,8 +7,9 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 class SignoutView(LoginRequiredMixin, View):
     def post(self, request):
         logout(request)
-        messages.success(request, 'YOU HAVE BEEN LOGGED OUT')
-        return redirect('signin')
+        messages.info(request, "YOU HAVE BEEN LOGGED OUT")
+        return redirect("signin")
