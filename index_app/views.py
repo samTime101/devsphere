@@ -15,7 +15,9 @@ class IndexView(LoginRequiredMixin, View):
     login_url = "/signin/"
 
     def get(self, request):
-        messages.success(request, "WELCOME TO HOME PAGE")
+        # MESSAGE LOGIN VAYE PAXI EK CHOTI MATRA DEKHAUNE & THEN WE POP IT OUT
+        if request.session.pop('loggined_in', False):
+            messages.success(request, "WELCOME TO HOME PAGE")
         events = Event.objects.all().order_by("-date")  # [:3]
         user = User.objects.get(username=request.user.username)
         return_context = {"events": events, "user": user}

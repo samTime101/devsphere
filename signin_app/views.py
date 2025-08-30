@@ -20,6 +20,7 @@ class SigninView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            request.session['loggined_in'] = True
             return redirect('index')
         else:
             messages.error(request, 'INVALID USERNAME OR PASSWORD')
