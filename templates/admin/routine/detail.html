@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Routines</title>
+</head>
+<body>
+    <h1>All Routines</h1>
+
+    {% if routine_data %}
+        {% for data in routine_data %}
+            <h2>{{ data.routine.title }}</h2>
+            {% if data.routine.description %}
+                <p>{{ data.routine.description }}</p>
+            {% endif %}
+
+            <!-- SHOW ON WEB -->
+            <form method="POST" action="">
+                {% csrf_token %}
+                <label>
+                    <input type="checkbox" name="show_on_website" onclick="this.form.submit()" {% if data.routine.show_on_website %}checked{% endif %}>
+                    Show on Website
+                </label>
+                <input type="hidden" name="routine_id" value="{{ data.routine.id }}">
+            </form>
+
+            {% if data.entries %}
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Class Type</th>
+                            <th>Module Code</th>
+                            <th>Subject</th>
+                            <th>Sections</th>
+                            <th>Teacher</th>
+                            <th>Room</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in data.entries %}
+                            <tr>
+                                <td>{{ entry.day }}</td>
+                                <td>{{ entry.time_range }}</td>
+                                <td>{{ entry.class_type }}</td>
+                                <td>{{ entry.module_code }}</td>
+                                <td>{{ entry.subject }}</td>
+                                <td>
+                                    {% for name in entry.section_names %}
+                                        {{ name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>{{ entry.teacher }}</td>
+                                <td>{{ entry.room }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+            {% else %}
+                <p>No entries for this routine.</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No routines available.</p>
+    {% endif %}
+</body>
+</html>

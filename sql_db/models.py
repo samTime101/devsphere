@@ -140,3 +140,30 @@ class Vote(models.Model):
     class Meta:
         # A USER CAN HAVE ONLY ONE VOTE PER ANSWER
         unique_together = ('user', 'answer')
+
+# ADDED ON SEP 1 BY SAMIP REGMI
+
+
+# ROUTINE APP
+class Routine(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    show_on_website = models.BooleanField(default=False)
+
+class Section(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+class RoutineEntry(models.Model):
+    routine = models.ForeignKey(Routine, on_delete=models.CASCADE, related_name="entries")
+    day = models.CharField(max_length=20)
+    time_range = models.CharField(max_length=50, default="TBA")
+    class_type = models.CharField(max_length=100, blank=True)
+    module_code = models.CharField(max_length=50, blank=True)
+    subject = models.CharField(max_length=200)
+    teacher = models.CharField(max_length=200, blank=True, null=True)
+    sections = models.ManyToManyField(Section, blank=True)
+    room = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        ordering = ["day", "time_range"]
