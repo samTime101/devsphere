@@ -52,6 +52,15 @@ __pycache__/
 /forum_question_details/__pycache__/
 /answer_forumquestion/migrations/
 /answer_forumquestion/__pycache__/
+/routine_app/migrations/
+/routine_app/__pycache__/
+routine_details/migrations/
+routine_details/__pycache__/
+routine_users/migrations/
+routine_users/__pycache__/
 /media/
 
+db.json
+parsed_routine.txt
+routine.pdf
 .env

@@ -1,0 +1,12 @@
+{% comment %} SAMIP REGMI {% endcomment %}
+{% comment %} SEP 1 {% endcomment %}
+
+{% comment %} SEND ROUTINE PDF {% endcomment %}
+<form method="POST" enctype="multipart/form-data" action="{% url 'create_routine' %}">
+    {% csrf_token %}
+    <input type="file" name="routine_pdf" required>
+    <input type="text" name="title">
+    <input type="text" name="description">
+    <input type="checkbox" name="show_on_website" checked>
+    <button type="submit">Upload</button>
+</form>

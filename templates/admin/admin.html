@@ -22,7 +22,7 @@
     <a href="{% url 'create_event' %}" class="btn btn-secondary mb-3">create an event</a>
     <a href="{% url 'blog_approval' %}" class="btn btn-secondary mb-3">Blog Approvals</a>
     <a href="{% url 'create_forum' %}" class="btn btn-secondary mb-3">Create Forum</a>
-
+    <a href="{% url 'create_routine' %}" class="btn btn-secondary mb-3">Create Routine</a>
     {% for event in events %}
         <p>
             {{ event.name }} - 
