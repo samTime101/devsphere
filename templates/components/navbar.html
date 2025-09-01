@@ -68,29 +68,8 @@
           <span class="hidden sm:inline">Admin</span>
         </a>
         {% endif %}
-        <!-- ROUTINE BUTTON-->
-         <div class="hidden md:flex">
-          <a
-            href="{% url 'routine_user' %}"
-            class="ds-btn ds-btn-secondary ds-btn-sm items-center space-x-2 hover:bg-gray-700 hover:border-gray-600 transition-all duration-200"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              ></path>
-            </svg>
-            <span class="hidden sm:inline">Routine</span>
-          </a>
+
         <!-- Action Buttons Group -->
-        </div>
         <div class="hidden md:flex items-center space-x-1">
           <!-- Create Dropdown -->
           <div class="relative group">
@@ -375,27 +354,6 @@
           Admin Page
         </a>
         {% endif %}
-
-        <!-- ROUTINE SECTION -->
-         <a
-          href="{% url 'routine_user' %}"
-          class="flex items-center px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors"
-        >
-          <svg
-            class="w-4 h-4 mr-3"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            ></path>
-          </svg>
-          Routine
-        </a>
 
 
         <!-- Create Section -->

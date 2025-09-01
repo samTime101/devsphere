@@ -1,43 +1,39 @@
-from django.shortcuts import render
+from django.http import JsonResponse
 from django.views import View
 from sql_db.models import Routine
-from django.contrib.auth.mixins import LoginRequiredMixin
-from collections import defaultdict
 
-class RoutineUserView(LoginRequiredMixin, View):
-    login_url = '/signin/'
-
+class RoutineUserAPIView(View):
     def get(self, request):
-        user_section = request.user.section
+        day = request.GET.get('day') 
+        section = request.GET.get('section') 
+
+        if not day or not section:
+            return JsonResponse({'error': 'BOTH DAY AND SECTION IS REQUIRED'}, status=400)
+
         routines = Routine.objects.filter(show_on_website=True)
-        routine_data = []
-        days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+        routines_list = []
 
         for routine in routines:
-            entries_by_day = defaultdict(list) # INITIALIZE DICTIONARY TO HOLD ENTRIES BY DAY
-            all_entries = routine.entries.filter(sections__name=user_section).distinct().order_by('day', 'time_range')
-            
-            for entry in all_entries:
-                entry.section_names = [section.name for section in entry.sections.all()]
-                entries_by_day[entry.day].append(entry) 
-                # GROUP ENTRIES BY DAY
+            entries = routine.entries.filter(day=day, sections__name=section).distinct().order_by('time_range')
 
-            daily_data = []
-            for day in days:
-                daily_data.append({
-                    'day': day,
-                    'entries': entries_by_day[day] 
-                    # GET ENTRIES FOR THE DAY (EMPTY IF NONE)
+            entries_data = []
+            for entry in entries:
+                entries_data.append({
+                    'time_range': entry.time_range,
+                    'class_type': entry.class_type,
+                    'module_code': entry.module_code,
+                    'subject': entry.subject,
+                    'sections': [s.name for s in entry.sections.all()],
+                    'teacher': entry.teacher,
+                    'room': entry.room
                 })
 
-            if all_entries.exists():
-                routine_data.append({
-                    'routine': routine,
-                    'daily_data': daily_data 
-                    # ADD DAILY DATA TO ROUTINE
+            if entries_data: 
+                routines_list.append({
+                    'routine_id': routine.id,
+                    'routine_title': routine.title,
+                    'routine_description': routine.description,
+                    'entries': entries_data
                 })
-        return_data = {
-            'routine_data': routine_data,
-            'days': days
-        }
-        return render(request, 'routine.html', return_data)
+
+        return JsonResponse({'routines': routines_list})
