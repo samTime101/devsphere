@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
             target.classList.remove('hidden');
 
             // RESET ALL TABS AND HIGHLIGHT ACTIVE TAB
-            tabs.forEach(t => t.classList.remove('border-primary', 'text-white')); 
-            tab.classList.add('border-primary', 'text-white');
+            tabs.forEach(t => t.classList.remove('border-blue-500', 'text-white')); 
+            tab.classList.add('border-blue-500', 'text-white');
         });
     });
 });
