@@ -31,6 +31,7 @@ from answer_forumquestion.views import VoteAnswerView
 from routine_app.views import RoutineView
 from routine_details.views import RoutineDetailView
 from routine_user.views import RoutineUserAPIView
+from routine_template.views import RoutineView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -59,6 +60,7 @@ urlpatterns = [
     path('create/routine/', RoutineView.as_view(), name='create_routine'),
     path('admin/routine/', RoutineDetailView.as_view(), name='routine_detail'),
     path('api/user/routine/', RoutineUserAPIView.as_view(), name='routine_user_api'),
+    path('routine/', RoutineView.as_view(), name='routine_user'),
 ]
 
 if settings.DEBUG:
