@@ -66,7 +66,9 @@ INSTALLED_APPS = [
     'answer_forumquestion',
     'routine_app',
     'routine_details',
-    'routine_user'
+    'routine_user',
+    'routine_template',
+    'htmlmin',
 ]
 
 MIDDLEWARE = [
